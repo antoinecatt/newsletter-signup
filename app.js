@@ -36,26 +36,27 @@ app.post('/', (req, res) => {
     method: 'POST',
     headers: {
       Authorization: 'antoine1 e3555c4593bd5c328d6f8fae35749336-us7'
-    },
-    body: jsonData
+    }
+    // body: jsonData
   };
 
   request(options, (error, response, body) => {
     if (error) {
-      res.send(error);
+      res.sendFile(__dirname + '/failure.html');
     } else {
       if (response.statusCode === 200) {
-        res.send('You have successfully subscribed!');
+        res.sendFile(__dirname + '/success.html');
       } else if (response.statusCode !== 200) {
-        res.send('OOPS! Something went wrong... ' + response.statusCode);
+        res.sendFile(__dirname + '/failure.html');
       }
     }
   });
 });
 
+app.post('/failure', (req, res) => {
+  res.redirect('/');
+});
+
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
-
-// e3555c4593bd5c328d6f8fae35749336-us7 api key
-// 096dccca1a list id
