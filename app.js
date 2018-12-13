@@ -42,9 +42,13 @@ app.post('/', (req, res) => {
 
   request(options, (error, response, body) => {
     if (error) {
-      console.log(error);
+      res.send(error);
     } else {
-      console.log(response.statusCode);
+      if (response.statusCode === 200) {
+        res.send('You have successfully subscribed!');
+      } else if (response.statusCode !== 200) {
+        res.send('OOPS! Something went wrong... ' + response.statusCode);
+      }
     }
   });
 });
